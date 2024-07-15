@@ -15,4 +15,14 @@ Note: find the corresponding veresion
 
 `pip install requirements.txt`
 
-`python train.py`
+One example:  
+`python train.py --cfg configs/sony/base.yaml`  
+If you want to train on other dataset, just make sure you have the correct config file and change the `--cfg` to your own config path.
+
+## Evaluate
+For MCR dataset:  
+`python test_MCR.py`
+
+For SID dataset:  
+If your GPU memory is larger than 40G, just `python test_SID_Sony.py` or `python test_SID_Fuji.py`  
+Otherwise, please set `merge_test: true` in the corresponding config file, note that the results may be a little bit smaller than tesing with whole image.
