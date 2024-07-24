@@ -34,6 +34,30 @@ If you want to train on other dataset, just make sure you have the correct confi
 You can access [SID_Sony](https://drive.google.com/file/d/1G6VruemZtpOyHjOC5N8Ww3ftVXOydSXx/view) and [SID_Fuji](https://drive.google.com/file/d/1C7GeZ3Y23k1B8reRL79SqnZbRBc4uizH/view), more details [here](https://github.com/cchen156/Learning-to-See-in-the-Dark)  
 [MCR](https://drive.google.com/file/d/1Q3NYGyByNnEKt_mREzD2qw9L2TuxCV_r/view), more details [here](https://github.com/TCL-AILab/Abandon_Bayer-Filter_See_in_the_Dark).  
 
+The directory for the datasets should be as follows:
+----datasets
+--------SID
+------------Fuji
+----------------Fuji
+--------------------long
+--------------------short
+----------------Fuji_test_list.txt
+----------------Fuji_train_list.txt
+----------------Fuji_val_list.txt
+------------Sony
+----------------Sony
+--------------------long
+--------------------short
+----------------Sony_test_list.txt
+----------------Sony_train_list.txt
+----------------Sony_val_list.txt
+--------MCR
+------------Mono_Colored_RAW_Paired_DATASET
+----------------Color_RAW_Input
+----------------RGB_GT
+------------MCR_test_list.txt
+------------MCR_train_list.txt  
+
 Before evaluating our pretrained models, please download them [sony_best_model.pth](https://drive.google.com/file/d/1eAgm5HHDH0CBUsl-czZ7Kdues3tAPy7W/view?usp=drive_link), [fuji_best_model.pth](https://drive.google.com/file/d/1C9x-VcHdkFt-7MQONSkZAWtttu3Gtp12/view?usp=drive_link), [mac_best_model.pth](https://drive.google.com/file/d/1OOuyC7PcODPrcNm1uXx2CZwIS8mchtj7/view?usp=drive_link), and put them in the ```pretrained``` folder.  
 
 For MCR dataset: 
