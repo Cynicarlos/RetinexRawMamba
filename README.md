@@ -9,6 +9,10 @@ Envs of Mamba: My cuda version:11.7
 conda create -n TSCDNet python=3.9
 conda activate TSCDNet
 ```
+```
+pip install torch==2.0.1 torchvision==0.15.2 torchaudio==2.0.2 --index-url https://download.pytorch.org/whl/cu118
+```
+
 Download these two files from the following links and upload them to the server, and then install:  
 Note: find the corresponding veresion
 1. [causal_conv1d](https://github.com/Dao-AILab/causal-conv1d/releases/tag/v1.0.0)
@@ -17,7 +21,6 @@ Note: find the corresponding veresion
 `mamba_ssm-1.0.1+cu118torch2.0cxx11abiFALSE-cp39-cp39-linux_x86_64.whl`
 
 ```
-pip install torch==2.0.1 torchvision==0.15.2 torchaudio==2.0.2 --index-url https://download.pytorch.org/whl/cu118
 pip install causal_conv1d-1.0.0+cu118torch2.0cxx11abiFALSE-cp39-cp39-linux_x86_64.whl  
 pip install mamba_ssm-1.0.1+cu118torch2.0cxx11abiFALSE-cp39-cp39-linux_x86_64.whl
 pip install -r requirements.txt
