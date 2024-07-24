@@ -36,7 +36,7 @@ data:
 
 model:
   name: TSCDNet
-  TSCDNet_Fuji:
+  TSCDNet:
     in_channels: 9
     base_channels: 32
     base_d_state: 4
