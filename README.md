@@ -28,7 +28,7 @@ pip install -r requirements.txt
 
 One example:  
 ```python
-python train.py --cfg configs/sony.yaml
+python train.py -cfg configs/sony.yaml
 ```  
 If you want to train on other dataset, just make sure you have the correct config file and change the `--cfg` to your own config path.
 
