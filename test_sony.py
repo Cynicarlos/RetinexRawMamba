@@ -114,10 +114,10 @@ if __name__ == "__main__":
     model.load_state_dict(checkpoint['model'])
 
     test_dataloader = build_test_loader(config['data'])
-    #merge_test(model, test_dataloader)
-    test(model, test_dataloader)
+    merge_test(model, test_dataloader)
+    #test(model, test_dataloader)
 
-    save_dir = f"./visualization/{model_name}/Sony_results"
+    #save_dir = f"./visualization/{model_name}/Sony_results"
     #os.makedirs(save_dir,exist_ok=True)
     #test(model, test_dataloader,save_image=True, save_dir=save_dir)
     
