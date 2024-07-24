@@ -30,6 +30,9 @@ python train.py --cfg configs/sony.yaml
 If you want to train on other dataset, just make sure you have the correct config file and change the `--cfg` to your own config path.
 
 ## Evaluate
+### Dataset Preparation
+You can access [SID_Sony](https://drive.google.com/file/d/1G6VruemZtpOyHjOC5N8Ww3ftVXOydSXx/view) and [SID_Fuji](https://drive.google.com/file/d/1C7GeZ3Y23k1B8reRL79SqnZbRBc4uizH/view) in <https://github.com/cchen156/Learning-to-See-in-the-Dark>, [MCR](https://drive.google.com/file/d/1Q3NYGyByNnEKt_mREzD2qw9L2TuxCV_r/view) in <https://github.com/TCL-AILab/Abandon_Bayer-Filter_See_in_the_Dark>.  
+Before evaluating our pretrained models, please download them [sony_best_model.pth](https://drive.google.com/file/d/1eAgm5HHDH0CBUsl-czZ7Kdues3tAPy7W/view?usp=drive_link), [fuji_best_model.pth](https://drive.google.com/file/d/1C9x-VcHdkFt-7MQONSkZAWtttu3Gtp12/view?usp=drive_link), [mac_best_model.pth](https://drive.google.com/file/d/1OOuyC7PcODPrcNm1uXx2CZwIS8mchtj7/view?usp=drive_link), and put them in the ```pretrained``` folder.
 For MCR dataset: 
 ```python
 python test_MCR.py
