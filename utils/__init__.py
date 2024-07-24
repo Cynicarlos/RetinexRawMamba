@@ -93,33 +93,3 @@ def get_grad_norm(parameters, norm_type=2):
         total_norm += param_norm.item() ** norm_type
     total_norm = total_norm ** (1. / norm_type)
     return total_norm
-
-def save_image_torch(img, file_path, range_255_float=True, params=None, auto_mkdir=True):
-    """Write image to file.
-    Args:
-        img (ndarray): Image array to be written.
-        file_path (str): Image file path.
-        params (None or list): Same as opencv's :func:`imwrite` interface.
-        auto_mkdir (bool): If the parent folder of `file_path` does not exist,
-            whether to create it automatically.
-    Returns:
-        bool: Successful or not.
-    """
-    if auto_mkdir:
-        dir_name = os.path.abspath(os.path.dirname(file_path))
-        os.makedirs(dir_name, exist_ok=True)
-
-    assert len(img.size()) == 3
-    img = img.clone().cpu().detach().numpy().transpose(1, 2, 0)
-
-    if range_255_float:
-        # Unlike MATLAB, numpy.unit8() WILL NOT round by default.
-        img = img.clip(0, 255).round()
-        img = img.astype(np.uint8)
-    else:
-        img = img.clip(0, 1)
-
-    img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
-    ok = cv2.imwrite(file_path, img, params)
-    if not ok:
-        raise IOError('Failed in writing images.')
