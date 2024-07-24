@@ -66,16 +66,16 @@ Before evaluating our pretrained models, please download them [sony_best_model.p
 
 For MCR dataset: 
 ```python
-python test_MCR.py
+python test_mcr.py
 ```  
 For SID dataset:  
 If your GPU memory is larger than 40G, just 
 ```python
-python test_SID_Sony.py
+python test_sony.py
 ```
 or
 ```python
-python test_SID_Fuji.py
+python test_fuji.py
 ```
 Otherwise, please set 
 ```
