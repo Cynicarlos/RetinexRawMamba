@@ -1990,13 +1990,7 @@ def cal_model_complexity():
     print(f"FLOPs: {flops / 1e9} G")
     print(f"Params: {params / 1e6} M")
 
-def summary_model():
-    from torchsummary import summary
-    model = TSCDNet(in_channels=4, base_channels=32).cuda()
-    summary(model, (4, 512, 512))
-
 
 if __name__ == "__main__":
     cal_model_complexity()
-    # summary_model()
     exit(0)
