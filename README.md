@@ -6,8 +6,8 @@ cd TSCDNet
 ## Train from scratch
 Envs of Mamba: My cuda version:11.7  
 ```
-conda create -n mamba python=3.9
-conda activate mamba
+conda create -n TSCDNet python=3.9
+conda activate TSCDNet
 ```
 Download these two files from the following links and upload them to the server, and then install:  
 Note: find the corresponding veresion
