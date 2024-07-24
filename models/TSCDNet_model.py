@@ -1832,7 +1832,7 @@ class TSCDNet(nn.Module):
             nn.Conv2d(base_channels,base_channels,5,padding=2,padding_mode=self.padding_mode),
             nn.GELU(),
             nn.Conv2d(base_channels, 3*in_channels, 1),
-            nn.PixelShuffle(2),
+            nn.PixelShuffle(int(math.sqrt(in_channels)))
         )
 
     def _check_and_padding(self, x):
