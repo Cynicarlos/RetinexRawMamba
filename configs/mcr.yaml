@@ -1,6 +1,6 @@
-name: SONY
+name: MCR
 test_as_valid: true
-manual_seed: 3407 # is all you need
+manual_seed: 3407
 output: runs
 
 loss:
@@ -12,8 +12,8 @@ loss:
   - 1.0
 
 data:
-  name: SIDSonyDataset
-  data_dir: /data/dataset/Carlos/SID/Sony
+  name: MCRDataset
+  data_dir: E:/Deep Learning/datasets/MCR
   num_workers: 16
   pin_memory: true
   process:
@@ -24,15 +24,10 @@ data:
     v_flip: true
   test:
     batch_size: 1
-    image_list_file: Sony_test_list.txt
-    merge_test: false
+    patch_size: null 
   train:
     batch_size: 1
-    image_list_file: Sony_train_list.txt
-    patch_size: 512
-  valid:
-    batch_size: 1
-    image_list_file: Sony_val_list.txt
+    patch_size: null #default not patch
 
 model:
   name: TSCDNet
