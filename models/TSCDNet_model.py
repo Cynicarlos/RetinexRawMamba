@@ -574,7 +574,7 @@ class NaiveMamba(nn.Module):
         return out
 
 class RMamba(nn.Module):
-    def __init__(self, in_channels, d_state, mambatype):
+    def __init__(self, in_channels, d_state):
         super().__init__()
         self.layer_norm_1 = LayerNorm(in_channels, data_format="channels_first")
         self.mamba = ADZMamba(d_model=in_channels, d_state=d_state)
