@@ -34,8 +34,8 @@ If you want to train on other dataset, just make sure you have the correct confi
 You can access [SID_Sony](https://drive.google.com/file/d/1G6VruemZtpOyHjOC5N8Ww3ftVXOydSXx/view) and [SID_Fuji](https://drive.google.com/file/d/1C7GeZ3Y23k1B8reRL79SqnZbRBc4uizH/view), more details [here](https://github.com/cchen156/Learning-to-See-in-the-Dark)  
 [MCR](https://drive.google.com/file/d/1Q3NYGyByNnEKt_mREzD2qw9L2TuxCV_r/view), more details [here](https://github.com/TCL-AILab/Abandon_Bayer-Filter_See_in_the_Dark).  
 
-The directory for the datasets should be as follows:
-datasets
+The directory for the datasets should be as follows:  
+datasets  
 ├── SID  
 │   ├── Fuji  
 │   │   ├── Fuji  
