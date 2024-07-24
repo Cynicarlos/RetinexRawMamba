@@ -1,13 +1,10 @@
-import os
-import numpy as np
-import torch
 import imageio
-from PIL import Image
-from torch.utils import data
+import numpy as np
+import os
+import torch
 
-import sys
-sys.path.append('E:\Deep Learning\IATlab\TBDNet')
 from utils.registry import DATASET_REGISTRY
+from torch.utils import data
 
 
 @DATASET_REGISTRY.register()
@@ -71,8 +68,8 @@ class MCRDataset(data.Dataset):
         gt_raw_path = info['gt_raw_path']
         gt_rgb_path = info['gt_rgb_path']#./Mono_Colored_RAW_Paired_DATASET/RGB_GT/C00117_48mp_0x8_0x2fff.jpg
 
-        input_raw = imageio.imread(os.path.join(self.data_dir,input_path))#(h,w) numpy
-        gt_raw = imageio.imread(os.path.join(self.data_dir,gt_raw_path))#(h,w) numpy
+        input_raw = imageio.imread(os.path.join(self.data_dir,input_path)).transpose(2,0,1)#(1,h,w) numpy
+        gt_raw = imageio.imread(os.path.join(self.data_dir,gt_raw_path)).transpose(2,0,1)#(1,h,w) numpy
         gt_rgb = imageio.imread(os.path.join(self.data_dir,gt_rgb_path)).transpose(2,0,1)#(3,1024,1280) numpy
 
         input_raw = self.pack_raw(input_raw) #(4, h/2, w/2)
@@ -128,8 +125,7 @@ class MCRDataset(data.Dataset):
         }
 
     def pack_raw(self, image):
-        H, W = image.shape
-        image = np.expand_dims(image, axis=0)
+        _, H, W = image.shape
         out = np.concatenate((image[:, 0:H:2, 0:W:2],
                             image[:, 0:H:2, 1:W:2],
                             image[:, 1:H:2, 1:W:2],
