@@ -71,6 +71,6 @@ if __name__ == "__main__":
 
     #save_dir = f"./visualization/{model_name}/MCR_results"
     #os.makedirs(save_dir, exist_ok=True)
-    test(model, test_dataloader,save_image=False)
+    test(model, test_dataloader,save_image=False,save_dir=None)
     
     
