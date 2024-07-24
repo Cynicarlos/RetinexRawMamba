@@ -1,8 +1,6 @@
 einops
-exifread
 matplotlib
 opencv-python
-pyiqa
 PyYAML
 rawpy
 scikit-image
