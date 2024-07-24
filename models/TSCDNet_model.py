@@ -1801,7 +1801,7 @@ class TSCDNet(nn.Module):
         self.raw_out = nn.Sequential(
             nn.Conv2d(base_channels,base_channels,3,padding=1,padding_mode=self.padding_mode),
             nn.GELU(),
-            nn.Conv2d(base_channels, 4, 1),
+            nn.Conv2d(base_channels, in_channels, 1),
         )
 
         self.re_fuses = nn.ModuleList([
@@ -1831,7 +1831,7 @@ class TSCDNet(nn.Module):
         self.rgb_out = nn.Sequential(
             nn.Conv2d(base_channels,base_channels,5,padding=2,padding_mode=self.padding_mode),
             nn.GELU(),
-            nn.Conv2d(base_channels, 12, 1),
+            nn.Conv2d(base_channels, 3*in_channels, 1),
             nn.PixelShuffle(2),
         )
 
