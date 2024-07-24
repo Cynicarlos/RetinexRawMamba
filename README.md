@@ -54,3 +54,6 @@ Otherwise, please set
 merge_test: true
 ```
 in the corresponding config file, note that the results may be a little bit smaller than tesing with whole image.
+
+## Acknowledgement
+The repository is refactored based on [DNF](https://github.com/Srameo/DNF), thanks to the author.
