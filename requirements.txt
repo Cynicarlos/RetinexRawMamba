@@ -1,11 +1,7 @@
-einops
-matplotlib
-opencv-python
-PyYAML
-rawpy
-scikit-image
+imageio
+numpy==1.24.1
+rawpy==0.20.0
 tensorboard
 thop
 timm
-tqdm
-
+torchmetrics
