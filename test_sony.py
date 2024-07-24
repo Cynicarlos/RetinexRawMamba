@@ -109,7 +109,7 @@ if __name__ == "__main__":
 
     model_name, model = build_model(config['model'])
     model = model.cuda()
-    checkpoint = torch.load('sony_best_model.pth')
+    checkpoint = torch.load('pretrained/sony_best_model.pth')
     print(f"epoch: {checkpoint['epoch']}")
     model.load_state_dict(checkpoint['model'])
 
