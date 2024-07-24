@@ -1646,17 +1646,8 @@ class NaiveMamba(nn.Module):
 class RMamba(nn.Module):
     def __init__(self, in_channels, d_state, mambatype):
         super().__init__()
-        self.layer_norm_1 = LayerNorm(in_channels, data_format="channels_first")
-        if mambatype == 'ADMamba':
-            self.mamba = ADMamba(d_model=in_channels, d_state=d_state)
-        elif mambatype == 'ADZMamba':
-            self.mamba = ADZMamba(d_model=in_channels, d_state=d_state)
-        elif mambatype == 'NaiveMamba':
-            self.mamba = NaiveMamba(d_model=in_channels, d_state=d_state)
-        elif mambatype == 'ZMamba':
-            self.mamba = ZMamba(d_model=in_channels, d_state=d_state)
-        elif mambatype == 'OSW-ZMamba':
-            self.mamba = OSW_ZMamba(d_model=in_channels, d_state=d_state)
+        self.layer_norm_1 = LayerNorm(in_channels, data_format="channels_first"
+        self.mamba = ADZMamba(d_model=in_channels, d_state=d_state)
         self.skip_scale = nn.Parameter(torch.ones(in_channels))
         self.layer_norm_2 = LayerNorm(in_channels, data_format="channels_first")
         self.conv = nn.Sequential(nn.Conv2d(in_channels, in_channels, 1), nn.GELU())
@@ -1679,7 +1670,7 @@ class TowDGE(nn.Module):
     def __init__(self, in_channels, d_state):
         super().__init__()
         self.dn_branch = SDB(in_channels=in_channels)
-        self.cc_branch = RMamba(in_channels=in_channels,d_state=d_state,mambatype='ADZMamba')
+        self.cc_branch = RMamba(in_channels=in_channels,d_state=d_state)
     def forward(self, x, state):
         assert state == 'dn' or state == 'cc'
         if state == 'dn':
@@ -1729,6 +1720,8 @@ class TSCDNet(nn.Module):
     ):
         super().__init__()
 
+        self.sqrt_inchannels = int(math.sqrt(in_channels))
+
         self.rdm = RDM(in_channels=in_channels, middle_channels=base_channels)
         self.light_feature_downs = nn.ModuleList(
             [SimpleDown(in_channels=base_channels * (2**idx)) for idx in range(3)]
@@ -1745,21 +1738,6 @@ class TSCDNet(nn.Module):
             #SimpleFuse(in_channels=base_channels*(2**i))
             for i in range(4)
         ])
-
-        #8,4,2,1
-        '''
-        self.dn_up_retinex_fuses = nn.ModuleList([
-            DAF(in_channels=base_channels*(2**i))
-            #GFM(in_channels=base_channels*(2**i))
-            for i in range(3,-1,-1)
-        ])
-        self.cc_up_retinex_fuses = nn.ModuleList([
-            DAF(in_channels=base_channels*(2**i))
-            #GFM(in_channels=base_channels*(2**i))
-            for i in range(3,-1,-1)
-        ])
-        '''
-        
 
         self.padding_mode = "reflect"
 
@@ -1794,7 +1772,6 @@ class TSCDNet(nn.Module):
         # three
         self.dn_fuses = nn.ModuleList([
             DAF(in_channels=base_channels*(2**i))
-            #GFM(in_channels=base_channels*(2**i))
             for i in range(2, -1, -1)
         ])
 
@@ -1806,13 +1783,12 @@ class TSCDNet(nn.Module):
 
         self.re_fuses = nn.ModuleList([
             DAF(in_channels=base_channels*(2**i))
-            #GFM(in_channels=base_channels*(2**i))
             for i in range(3)
         ])
 
         # four
         self.ccs = nn.ModuleList([
-            RMamba(in_channels=base_channels * (2**i),d_state=base_d_state * (2**i),mambatype='ADZMamba')
+            RMamba(in_channels=base_channels * (2**i),d_state=base_d_state * (2**i))
             for i in range(3, -1, -1)
         ])
 
@@ -1824,7 +1800,6 @@ class TSCDNet(nn.Module):
         # four
         self.cc_fuses = nn.ModuleList([
             DAF(in_channels=base_channels*(2**i))
-            #GFM(in_channels=base_channels*(2**i))
             for i in range(2, -1, -1)
         ])
 
@@ -1832,7 +1807,7 @@ class TSCDNet(nn.Module):
             nn.Conv2d(base_channels,base_channels,5,padding=2,padding_mode=self.padding_mode),
             nn.GELU(),
             nn.Conv2d(base_channels, 3*in_channels, 1),
-            nn.PixelShuffle(int(math.sqrt(in_channels)))
+            nn.PixelShuffle(self.sqrt_inchannels)
         )
 
     def _check_and_padding(self, x):
@@ -1860,7 +1835,7 @@ class TSCDNet(nn.Module):
 
     def _check_and_crop(self, x, raw):
         left, right, top, bottom = self.crop_indices
-        x = x[:, :, top * 2 : bottom * 2, left * 2 : right * 2]
+        x = x[:, :, top * self.sqrt_inchannels : bottom * self.sqrt_inchannels, left * self.sqrt_inchannels : right * self.sqrt_inchannels]
         raw = raw[:, :, top:bottom, left:right] if raw is not None else None
         return x, raw
 
@@ -1892,23 +1867,9 @@ class TSCDNet(nn.Module):
         #denoising decoding
         decoder_features = []# 4,2,1
         encoder_features.reverse()  # 1,2,4 -> 4,2,1
-        #light_features.reverse()# 1,2,4,8 -> 8,4,2,1 uncomment this line if you don't use retinex in decoder
+        
         x = self.dn_decoder[0](x)
-        
-        #with retinex in decoder
-        '''
-        for dn_up_retinex_fuse, dn_up, dn_fuse, denoise, light_feature, encoder_feature in zip(
-            self.dn_up_retinex_fuses[:-1], self.dn_ups, self.dn_fuses,self.dn_decoder[1:], light_features, encoder_features
-        ):
-            x = dn_up_retinex_fuse(x, light_feature)
-            x = dn_up(x)
-            x = dn_fuse(x, encoder_feature)
-            x = denoise(x)
-            decoder_features.append(x)
-        x = self.dn_up_retinex_fuses[-1](x, light_features[-1])
-        '''
-        
-        #no retinex in decoder
+    
         for dn_up, dn_fuse, denoise, encoder_feature in zip(
             self.dn_ups, self.dn_fuses,self.dn_decoder[1:], encoder_features
         ):
@@ -1926,7 +1887,6 @@ class TSCDNet(nn.Module):
         #cc encoding
         encoder_features = []
         decoder_features.reverse()  # 4,2,1 -> 1,2,4
-        #light_features.reverse() # 8,4,2,1 -> 1,2,4,8 uncomment this line if you don't use retinex in decoder
         
         for (retinex_fuse, process, refuse, cc_down, light_feature, decoder_feature) in zip(
             self.cc_down_retinex_fuses[:-1],
@@ -1947,22 +1907,7 @@ class TSCDNet(nn.Module):
 
         ## cc decoding
         encoder_features.reverse()  # 1,2,4 -> 4,2,1
-        #light_features.reverse()# 1,2,4,8 -> 8,4,2,1 uncomment this line if you don't use retinex in decoder
-        
-        #with retinex in decoder
-        '''
-        for cc, retinex_fuse, cc_up, cc_fuse, light_feature, encoder_feature in zip(
-            self.ccs[:-1], self.cc_up_retinex_fuses[:-1], self.cc_ups, self.cc_fuses, light_features[:-1], encoder_features
-        ):
-            x = cc(x)
-            x = retinex_fuse(x, light_feature)
-            x = cc_up(x)
-            x = cc_fuse(x, encoder_feature)
-        x = self.ccs[-1](x)
-        x = self.cc_up_retinex_fuses[-1](x, light_features[-1])
-        '''
 
-        #no retinex in decoder
         for cc, cc_up, cc_fuse, encoder_feature in zip(
             self.ccs[:-1], self.cc_ups, self.cc_fuses, encoder_features
         ):
