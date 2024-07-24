@@ -69,19 +69,15 @@ For MCR dataset:
 python test_mcr.py
 ```  
 For SID dataset:  
-If your GPU memory is larger than 40G, just 
+If your GPU memory is larger than 40G, please set ```merge_test: false``` in the corresponding config file.
 ```python
 python test_sony.py
 ```
-or
 ```python
 python test_fuji.py
 ```
-Otherwise, please set 
-```
-merge_test: true
-```
-in the corresponding config file, note that the results may be a little bit smaller than tesing with whole image.
+Otherwise, please set ```merge_test: true```.
+Note that the results may be a little bit smaller than tesing with whole image.
 
 ## Acknowledgement
 The repository is refactored based on [DNF](https://github.com/Srameo/DNF), thanks to the author.
