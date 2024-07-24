@@ -1720,7 +1720,7 @@ class SDB(nn.Module):
         return  x + self.sdb(x)
 
 @MODEL_REGISTRY.register()
-class TSCDNet(nn.Module):
+class TSCDNet_Fuji(nn.Module):
     def __init__(
         self,
         in_channels=4,
@@ -1984,7 +1984,7 @@ Params: 6.535978 M
 
 def cal_model_complexity():
     import thop
-    model = TSCDNet(in_channels=4, base_channels=32, base_d_state=4).cuda()
+    model = TSCDNet_Fuji(in_channels=4, base_channels=32, base_d_state=4).cuda()
     x = torch.rand(1, 4, 512, 512).cuda()
     flops, params = thop.profile(model, inputs=(x,), verbose=False)
     print(f"FLOPs: {flops / 1e9} G")
