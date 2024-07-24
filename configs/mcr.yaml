@@ -23,11 +23,13 @@ data:
     h_flip: true
     v_flip: true
   test:
+    image_list_file: MCR_test_list.txt
     batch_size: 1
-    patch_size: null 
+    patch_size: null
   train:
+    image_list_file: MCR_train_list.txt
     batch_size: 1
-    patch_size: null #default not patch
+    patch_size: null
 
 model:
   name: TSCDNet
