@@ -13,7 +13,7 @@ loss:
 
 data:
   name: MCRDataset
-  data_dir: E:/Deep Learning/datasets/MCR
+  data_dir: /data/dataset/Carlos/MCR
   num_workers: 16
   pin_memory: true
   process:
