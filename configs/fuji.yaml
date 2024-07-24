@@ -25,7 +25,7 @@ data:
   test:
     batch_size: 1
     image_list_file: Fuji_test_list.txt
-    merge_test: true
+    merge_test: false
   train:
     batch_size: 1
     image_list_file: Fuji_train_list.txt
