@@ -19,10 +19,14 @@ Note: find the corresponding veresion
 `causal_conv1d-1.0.0+cu118torch2.0cxx11abiFALSE-cp39-cp39-linux_x86_64.whl`
 2. [mamba_ssm](https://github.com/state-spaces/mamba/releases/tag/v1.0.1)
 `mamba_ssm-1.0.1+cu118torch2.0cxx11abiFALSE-cp39-cp39-linux_x86_64.whl`
+you can also down them easily [here](https://drive.google.com/drive/folders/1lsb6MfmGF8OmhqaishnBc69TFNxsabHP)
 
 ```
 pip install causal_conv1d-1.0.0+cu118torch2.0cxx11abiFALSE-cp39-cp39-linux_x86_64.whl  
 pip install mamba_ssm-1.0.1+cu118torch2.0cxx11abiFALSE-cp39-cp39-linux_x86_64.whl
+```
+
+```
 pip install -r requirements.txt
 ```
 
@@ -30,7 +34,7 @@ One example:
 ```python
 python train.py -cfg configs/sony.yaml
 ```  
-If you want to train on other dataset, just make sure you have the correct config file and change the `--cfg` to your own config path.
+If you want to train on other dataset, just make sure you have the correct config file and change the `-cfg` to your own config path.
 
 ## Evaluate
 ### Dataset Preparation
