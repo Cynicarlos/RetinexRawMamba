@@ -30,9 +30,15 @@ pip install mamba_ssm-1.0.1+cu118torch2.0cxx11abiFALSE-cp39-cp39-linux_x86_64.wh
 pip install -r requirements.txt
 ```
 ## Dataset Preparation
-You can access [SID_Sony](https://drive.google.com/file/d/1G6VruemZtpOyHjOC5N8Ww3ftVXOydSXx/view) and [SID_Fuji](https://drive.google.com/file/d/1C7GeZ3Y23k1B8reRL79SqnZbRBc4uizH/view), more details [here](https://github.com/cchen156/Learning-to-See-in-the-Dark); [MCR](https://drive.google.com/file/d/1Q3NYGyByNnEKt_mREzD2qw9L2TuxCV_r/view), more details [here](https://github.com/TCL-AILab/Abandon_Bayer-Filter_See_in_the_Dark).  
+| Dataset | Download link |  Source  |  CFA     |
+| :---:   |    :----:     |  :---:   |  :---:   |
+| Sony    | [Google Drive](https://drive.google.com/file/d/1G6VruemZtpOyHjOC5N8Ww3ftVXOydSXx/view)       | [Link](https://github.com/cchen156/Learning-to-See-in-the-Dark)   |  Bayer  |
+| Fuji    | [Google Drive](https://drive.google.com/file/d/1C7GeZ3Y23k1B8reRL79SqnZbRBc4uizH/view)       | [Link](https://github.com/cchen156/Learning-to-See-in-the-Dark)   |  X-Trans  |
+| MCR     | [Google Drive](https://drive.google.com/file/d/1Q3NYGyByNnEKt_mREzD2qw9L2TuxCV_r/view)       | [Link](https://github.com/TCL-AILab/Abandon_Bayer-Filter_See_in_the_Dark)   |  Bayer  |
+
 Note that for SID Sony dataset, to be consistent with DNF, please use the ```Sony_test_list.txt``` we provide in the ```datasets``` folder to evaluate, and there are totally ```562``` images to be tested.  
 The directory for the datasets should be as follows:  
+
 ```
 📁datasets/  
 ├─── 📁MCR/  
@@ -76,7 +82,12 @@ python train.py -cfg configs/sony.yaml
 If you want to train on other dataset, just make sure you have the correct config file in the ```configs``` folder, and change the `-cfg` to your own config path.
 
 ## Evaluate
-Before evaluating our pretrained models, please download [sony_best_model.pth](https://drive.google.com/file/d/1eAgm5HHDH0CBUsl-czZ7Kdues3tAPy7W/view?usp=drive_link), [fuji_best_model.pth](https://drive.google.com/file/d/1C9x-VcHdkFt-7MQONSkZAWtttu3Gtp12/view?usp=drive_link), [mac_best_model.pth](https://drive.google.com/file/d/1OOuyC7PcODPrcNm1uXx2CZwIS8mchtj7/view?usp=drive_link), and put them in the ```pretrained``` folder.  
+Before evaluating our pretrained models, please download them by the following links and put them in the ```pretrained``` folder.  
+| Dataset | Pretrained Model  |
+| :---:   |    :----:     |
+| Sony    | [Google Drive](https://drive.google.com/file/d/1eAgm5HHDH0CBUsl-czZ7Kdues3tAPy7W/view?usp=drive_link)      | 
+| Fuji    | [Google Drive](https://drive.google.com/file/d/1C9x-VcHdkFt-7MQONSkZAWtttu3Gtp12/view?usp=drive_link)      |
+| MCR     | [Google Drive](https://drive.google.com/file/d/1OOuyC7PcODPrcNm1uXx2CZwIS8mchtj7/view?usp=drive_link)      | 
 
 For MCR dataset: 
 ```python
