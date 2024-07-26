@@ -48,8 +48,8 @@ The directory for the datasets should be as follows:
 │    ├─── 📄MCR_test_list.txt  
 │    ├─── 📄MCR_train_list.txt  
 │    └─── 📁Mono_Colored_RAW_Paired_DATASET  
-│        ├─── 📁Color_RAW_Input  
-│        └─── 📁RGB_GT  
+│         ├─── 📁Color_RAW_Input  
+│         └─── 📁RGB_GT  
 └─── 📁SID  
      ├─── 📁Fuji  
      │    ├─── 📄Fuji_test_list.txt  
