@@ -43,28 +43,29 @@ You can access [SID_Sony](https://drive.google.com/file/d/1G6VruemZtpOyHjOC5N8Ww
 
 The directory for the datasets should be as follows:  
 
-&#x1F4C2;datasets  
-├── &#x1F4C2;SID  
-│   ├── &#x1F4C2;Fuji  
-│   │   ├── &#x1F4C2;Fuji  
-│   │   │   ├── &#x1F4C1;long  
-│   │   │   └── &#x1F4C1;short  
-│   │   ├── 📄Fuji_test_list.txt  
-│   │   ├── 📄Fuji_train_list.txt  
-│   │   └── 📄Fuji_val_list.txt  
-│   └── &#x1F4C2;Sony  
-│       ├── &#x1F4C2;Sony  
-│       │   ├── &#x1F4C1;long  
-│       │   └── &#x1F4C1;short  
-│       ├── 📄Sony_test_list.txt  
-│       ├── 📄Sony_train_list.txt  
-│       └── 📄Sony_val_list.txt  
-└── &#x1F4C2;MCR  
-    ├── &#x1F4C2;Mono_Colored_RAW_Paired_DATASET  
-    │   ├── &#x1F4C1;Color_RAW_Input  
-    │   └── &#x1F4C1;RGB_GT  
-    ├── 📄MCR_test_list.txt  
-    └── 📄MCR_train_list.txt         
+📁datasets
+├─ 📁MCR
+│  ├─ 📄MCR_test_list.txt
+│  ├─ 📄MCR_train_list.txt
+│  └─ 📁Mono_Colored_RAW_Paired_DATASET
+│     ├─ 📁Color_RAW_Input
+│     └─ 📁RGB_GT
+└─ 📁SID
+   ├─ 📁Fuji
+   │  ├─ 📄Fuji_test_list.txt
+   │  ├─ 📄Fuji_train_list.txt
+   │  ├─ 📄Fuji_val_list.txt
+   │  └─ 📁Fuji
+   │     ├─ 📁Long
+   │     └─ 📁Short
+   └─ 📁Sony
+      ├─ 📄Sony_test_list.txt
+      ├─ 📄Sony_train_list.txt
+      ├─ 📄Sony_val_list.txt
+      └─ 📁Sony
+         ├─ 📁Long
+         └─ 📁Short
+       
 
 Before evaluating our pretrained models, please download them [sony_best_model.pth](https://drive.google.com/file/d/1eAgm5HHDH0CBUsl-czZ7Kdues3tAPy7W/view?usp=drive_link), [fuji_best_model.pth](https://drive.google.com/file/d/1C9x-VcHdkFt-7MQONSkZAWtttu3Gtp12/view?usp=drive_link), [mac_best_model.pth](https://drive.google.com/file/d/1OOuyC7PcODPrcNm1uXx2CZwIS8mchtj7/view?usp=drive_link), and put them in the ```pretrained``` folder.  
 
