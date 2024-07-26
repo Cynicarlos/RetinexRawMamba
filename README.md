@@ -43,38 +43,38 @@ You can access [SID_Sony](https://drive.google.com/file/d/1G6VruemZtpOyHjOC5N8Ww
 
 The directory for the datasets should be as follows:  
 ```
-📁datasets  
-├─── 📁MCR  
+📁datasets/  
+├─── 📁MCR/  
 │    ├─── 📄MCR_test_list.txt  
 │    ├─── 📄MCR_train_list.txt  
-│    └─── 📁Mono_Colored_RAW_Paired_DATASET  
-│         ├─── 📁Color_RAW_Input
+│    └─── 📁Mono_Colored_RAW_Paired_DATASET/  
+│         ├─── 📁Color_RAW_Input/
 │         │    ├─── 📄C00001_48mp_0x8_0x00ff.tif
 │         │    └─── 📄...
-│         └─── 📁RGB_GT
+│         └─── 📁RGB_GT/
 │              ├─── 📄C00001_48mp_0x8_0x2fff.jpg
 │              └─── 📄...
-└─── 📁SID  
-     ├─── 📁Fuji  
+└─── 📁SID/  
+     ├─── 📁Fuji/  
      │    ├─── 📄Fuji_test_list.txt  
      │    ├─── 📄Fuji_train_list.txt  
      │    ├─── 📄Fuji_val_list.txt  
-     │    └─── 📁Fuji  
-     │         ├─── 📁Long
+     │    └─── 📁Fuji/  
+     │         ├─── 📁Long/
      │         │    ├─── 📄00001_00_10s.RAF
      │         │    └─── 📄...
-     │         └─── 📁Short
+     │         └─── 📁Short/
      │              ├─── 📄00001_00_0.1s.RAF
      │              └─── 📄...
-     └─── 📁Sony  
+     └─── 📁Sony/  
           ├─── 📄Sony_test_list.txt  
           ├─── 📄Sony_train_list.txt  
           ├─── 📄Sony_val_list.txt  
-          └─── 📁Sony  
-               ├─── 📁Long
+          └─── 📁Sony/  
+               ├─── 📁Long/
                │    ├─── 📄00001_00_10s.ARW
                │    └─── 📄...
-               └─── 📁Short
+               └─── 📁Short/
                     ├─── 📄00001_00_0.1s.ARW
                     └─── 📄...
 ```
