@@ -83,8 +83,10 @@ For MCR dataset:
 python test_mcr.py
 ```  
 For SID dataset:  
-If your GPU memory is larger than 40G, please set ```merge_test: false``` in the corresponding config file.
-```python test_sony.py``` or ```python test_fuji.py```  
+If your GPU memory is larger than 40G, please set ```merge_test: false``` in the corresponding config file.  
+```python
+python test_sony.py
+```  
 Otherwise, please set ```merge_test: true```.  
 Note that the results may be a little bit smaller than tesing with whole image.
 
