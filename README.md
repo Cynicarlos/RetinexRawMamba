@@ -48,23 +48,35 @@ The directory for the datasets should be as follows:
 │    ├─── 📄MCR_test_list.txt  
 │    ├─── 📄MCR_train_list.txt  
 │    └─── 📁Mono_Colored_RAW_Paired_DATASET  
-│         ├─── 📁Color_RAW_Input  
-│         └─── 📁RGB_GT  
+│         ├─── 📁Color_RAW_Input
+│         │    ├─── 📄C00001_48mp_0x8_0x00ff.tif
+│         │    └─── 📄...
+│         └─── 📁RGB_GT
+│              ├─── 📄C00001_48mp_0x8_0x2fff.jpg
+│              └─── 📄...
 └─── 📁SID  
      ├─── 📁Fuji  
      │    ├─── 📄Fuji_test_list.txt  
      │    ├─── 📄Fuji_train_list.txt  
      │    ├─── 📄Fuji_val_list.txt  
      │    └─── 📁Fuji  
-     │         ├─── 📁Long  
-     │         └─── 📁Short  
+     │         ├─── 📁Long
+     │         │    ├─── 📄00001_00_10s.RAF
+     │         │    └─── 📄...
+     │         └─── 📁Short
+     │              ├─── 📄00001_00_0.1s.RAF
+     │              └─── 📄...
      └─── 📁Sony  
           ├─── 📄Sony_test_list.txt  
           ├─── 📄Sony_train_list.txt  
           ├─── 📄Sony_val_list.txt  
           └─── 📁Sony  
-               ├─── 📁Long  
+               ├─── 📁Long
+               │    ├─── 📄00001_00_10s.ARW
+               │    └─── 📄...
                └─── 📁Short
+                    ├─── 📄00001_00_0.1s.ARW
+                    └─── 📄...
 ```
 
 Before evaluating our pretrained models, please download them [sony_best_model.pth](https://drive.google.com/file/d/1eAgm5HHDH0CBUsl-czZ7Kdues3tAPy7W/view?usp=drive_link), [fuji_best_model.pth](https://drive.google.com/file/d/1C9x-VcHdkFt-7MQONSkZAWtttu3Gtp12/view?usp=drive_link), [mac_best_model.pth](https://drive.google.com/file/d/1OOuyC7PcODPrcNm1uXx2CZwIS8mchtj7/view?usp=drive_link), and put them in the ```pretrained``` folder.  
