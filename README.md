@@ -4,7 +4,8 @@ git clone https://github.com/Cynicarlos/TSCDNet.git
 cd TSCDNet
 ```
 ## Train from scratch
-Envs of Mamba: My cuda version:11.7  
+Envs:  
+My cuda version:11.7  
 ```
 conda create -n TSCDNet python=3.9
 conda activate TSCDNet
