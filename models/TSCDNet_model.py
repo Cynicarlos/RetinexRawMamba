@@ -127,6 +127,7 @@ class DAF(nn.Module):
         x = self.out(x)
         return x
 
+#This is RAWMamba as mentioned in the paper, here we call it ADZMamba based on its scaning mechanism.
 class ADZMamba(nn.Module):
     def __init__(
         self,
