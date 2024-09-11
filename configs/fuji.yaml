@@ -35,8 +35,8 @@ data:
     image_list_file: Fuji_val_list.txt
 
 model:
-  name: TSCDNet
-  TSCDNet:
+  name: RetinexRawMamba
+  RetinexRawMamba:
     in_channels: 9
     base_channels: 32
     base_d_state: 4
