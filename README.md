@@ -1,13 +1,13 @@
-# TSCDNet (Tow Stage Cross Domain Net)
+# RetinexRawMamba
 ```
-git clone https://github.com/Cynicarlos/TSCDNet.git
-cd TSCDNet
+git clone https://github.com/Cynicarlos/RetinexRawMamba.git
+cd RetinexRawMamba
 ```
 ## Environments Preparation
 My cuda version: 11.7  
 ```
-conda create -n TSCDNet python=3.9
-conda activate TSCDNet
+conda create -n RetinexRawMamba python=3.9
+conda activate RetinexRawMamba
 ```
 ```
 pip install torch==2.0.1 torchvision==0.15.2 torchaudio==2.0.2 --index-url https://download.pytorch.org/whl/cu118
