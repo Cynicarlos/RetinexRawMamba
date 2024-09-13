@@ -40,7 +40,7 @@ pip install -r requirements.txt
 | MCR     | [Google Drive](https://drive.google.com/file/d/1Q3NYGyByNnEKt_mREzD2qw9L2TuxCV_r/view)       | [Link](https://github.com/TCL-AILab/Abandon_Bayer-Filter_See_in_the_Dark)   |  Bayer  |
 
 Note that for SID Sony dataset, to be consistent with DNF, please use the ```Sony_test_list.txt``` we provide in the ```datasets``` folder to evaluate, and there are totally ```562``` images to be tested.  
-The directory for the datasets should be as follows:  
+The directory for the datasets should be as following:  
 
 ```
 📁datasets/  
