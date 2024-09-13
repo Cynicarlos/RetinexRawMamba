@@ -1,4 +1,5 @@
-# RetinexRawMamba[arXiv](https://arxiv.org/pdf/2409.07040)
+# RetinexRawMamba
+paper is available at [arXiv](https://arxiv.org/pdf/2409.07040)
 ```
 git clone https://github.com/Cynicarlos/RetinexRawMamba.git
 cd RetinexRawMamba
