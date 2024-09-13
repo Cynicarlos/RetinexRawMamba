@@ -1,4 +1,4 @@
-# RetinexRawMamba
+# RetinexRawMamba[arXiv](https://arxiv.org/pdf/2409.07040)
 ```
 git clone https://github.com/Cynicarlos/RetinexRawMamba.git
 cd RetinexRawMamba
@@ -100,6 +100,20 @@ python test_sony.py
 ```  
 Otherwise, please set ```merge_test: true```.  
 Note that the results may be a little bit smaller than tesing with whole image.
+
+## Citation
+If there is any help for your research, please star this repository and if you want to follow this work, you can cite as following:
+```python
+@misc{chen2024retinexrawmambabridgingdemosaicingdenoising,
+      title={Retinex-RAWMamba: Bridging Demosaicing and Denoising for Low-Light RAW Image Enhancement}, 
+      author={Xianmin Chen and Peiliang Huang and Xiaoxu Feng and Dingwen Zhang and Longfei Han and Junwei Han},
+      year={2024},
+      eprint={2409.07040},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2409.07040}, 
+}
+```
 
 ## Acknowledgement
 The repository is refactored based on [DNF](https://github.com/Srameo/DNF), thanks to the author.
