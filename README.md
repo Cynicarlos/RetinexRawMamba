@@ -106,7 +106,7 @@ Note that the results may be a little bit smaller than tesing with whole image.
 
 ## Citation
 If there is any help for your research, please star this repository and if you want to follow this work, you can cite as following:
-```python
+```md
 @misc{chen2024retinexrawmambabridgingdemosaicingdenoising,
       title={Retinex-RAWMamba: Bridging Demosaicing and Denoising for Low-Light RAW Image Enhancement}, 
       author={Xianmin Chen and Peiliang Huang and Xiaoxu Feng and Dingwen Zhang and Longfei Han and Junwei Han},
