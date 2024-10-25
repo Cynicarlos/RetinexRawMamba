@@ -79,6 +79,7 @@ The directory for the datasets should be as following:
                     └─── 📄...
 ```
 ## Train from scratch
+Before training and testing, please make sure the corresponding config file is correct, like the dataset dir, change it to your dataset path.
 ```python
 python train.py -cfg configs/sony.yaml
 ```  
