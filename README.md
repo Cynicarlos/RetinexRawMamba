@@ -98,7 +98,7 @@ For MCR dataset:
 python test_mcr.py
 ```  
 For SID dataset:  
-If your GPU memory is smaller than 40G, generally 24G, please set use the following script so that you can test without OOM(out of memory). 
+If your GPU memory is smaller than 40G, generally 24G, please use the following script so that you can test without OOM (out of memory). 
 ```python
 python test_sony.py --merge_test
 ``` 
@@ -108,7 +108,7 @@ python test_sony.py
 ```  
  
 ## Citation
-If there is any help for your research, please star this repository and if you want to follow this work, you can cite as following:
+If there is any help for your research, please star this repository and if you want to follow this work, you can cite as follows:
 ```md
 @misc{chen2024retinexrawmambabridgingdemosaicingdenoising,
       title={Retinex-RAWMamba: Bridging Demosaicing and Denoising for Low-Light RAW Image Enhancement}, 
