@@ -69,8 +69,10 @@ if __name__ == "__main__":
 
     test_dataloader = build_test_loader(config['data'])
 
+    test(model, test_dataloader,save_image=False,save_dir=None)
     #save_dir = f"./visualization/{model_name}/MCR_results"
     #os.makedirs(save_dir, exist_ok=True)
-    test(model, test_dataloader,save_image=False,save_dir=None)
+    #test(model, test_dataloader,save_image=True,save_dir=save_dir)
+    
     
     

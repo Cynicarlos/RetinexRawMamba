@@ -15,17 +15,17 @@ dataset_filenames = [osp.splitext(osp.basename(v))[0] for v in glob(osp.join(dat
 _dataset_modules = [importlib.import_module(f'datasets.{file_name}') for file_name in dataset_filenames]
 
 
-def build_dataset(dataset_cfg, data_type: str):
-    assert data_type.upper() in ['TRAIN', 'VALID', 'TEST']
+def build_dataset(dataset_cfg, split: str):
+    assert split.upper() in ['TRAIN', 'VALID', 'TEST']
     dataset_cfg = deepcopy(dataset_cfg)
     dataset_name = dataset_cfg.pop('name')#SIDSonyDataset
     process_cfg = dataset_cfg.pop('process')
-    data_type_cfg = dataset_cfg.pop(data_type)
+    split_cfg = dataset_cfg.pop(split)
     dataset = DATASET_REGISTRY.get(dataset_name)(
         **dataset_cfg,
         **process_cfg,
-        **data_type_cfg,
-        data_type = data_type
+        **split_cfg,
+        split = split
     )
     return dataset
 

@@ -10,9 +10,8 @@ from torch.utils import data
 @DATASET_REGISTRY.register()
 class MCRDataset(data.Dataset):
 
-    def __init__(self, data_dir, image_list_file, patch_size=None, data_type='train', 
-                max_clip=1.0, min_clip=0.0,transpose=True, h_flip=True,
-                v_flip=True, ratio=True, **kwargs):
+    def __init__(self, data_dir, image_list_file, patch_size=None, split='train',
+                 transpose=True, h_flip=True, v_flip=True, ratio=True, **kwargs):
 
         assert os.path.exists(data_dir), "data_dir: {} not found.".format(data_dir)
         self.data_dir = data_dir #E:\Deep Learning\datasets\MCR
@@ -21,10 +20,8 @@ class MCRDataset(data.Dataset):
         assert os.path.exists(image_list_file), "image_list_file: {} not found.".format(image_list_file)
         self.image_list_file = image_list_file#..../MCR_train_list.txt
 
-        self.data_type = data_type  
+        self.split = split  
         self.patch_size = patch_size
-        self.max_clip = max_clip
-        self.min_clip = min_clip
         self.transpose = transpose
         self.h_flip = h_flip
         self.v_flip = v_flip
@@ -56,7 +53,7 @@ class MCRDataset(data.Dataset):
                     'ratio': np.float32(ratio)
                 })
 
-        print("processing: {} images for {}".format(len(self.img_info), self.data_type))
+        print("processing: {} images for {}".format(len(self.img_info), self.split))
 
 
     def __len__(self):
@@ -75,7 +72,7 @@ class MCRDataset(data.Dataset):
         input_raw = self.pack_raw(input_raw) #(4, h/2, w/2)
         gt_raw = self.pack_raw(gt_raw) #(4, h/2, w/2)
 
-        if self.data_type == 'train':
+        if self.split == 'train':
             #data argmentation
             if self.h_flip and np.random.randint(0,2) == 1:  # random horizontal flip
                 input_raw = np.flip(input_raw, axis=2)
@@ -98,13 +95,9 @@ class MCRDataset(data.Dataset):
         gt_raw = (np.float32(gt_raw) - self.black_level) / np.float32(self.white_level - self.black_level)
         gt_rgb = np.float32(gt_rgb) / np.float32(255)
 
-
         if self.ratio:
             input_raw = input_raw * info['ratio']
-        if self.max_clip is not None:
-            input_raw = np.minimum(input_raw, self.max_clip)
-        if self.min_clip is not None:
-            input_raw = np.maximum(input_raw, self.min_clip)
+        input_raw = np.maximum(np.minimum(input_raw, 1.0), 0.0)
 
         gt_rgb = gt_rgb.clip(0.0, 1.0)
 

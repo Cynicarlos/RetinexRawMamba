@@ -13,19 +13,17 @@ loss:
 
 data:
   name: SIDFujiDataset
-  data_dir: /data/dataset/Carlos/SID/Fuji
+  data_dir: /root/autodl-tmp/datasets/SID/Fuji
   num_workers: 16
   pin_memory: true
   process:
-    max_clip: 1.0
-    min_clip: 0.0
     transpose: true
     h_flip: true
     v_flip: true
   test:
     batch_size: 1
     image_list_file: Fuji_test_list.txt
-    merge_test: false
+    merge_test: true
   train:
     batch_size: 1
     image_list_file: Fuji_train_list.txt

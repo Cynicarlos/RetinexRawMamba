@@ -10,7 +10,7 @@ from models import build_model
 from timm.utils import AverageMeter
 from torch.utils.tensorboard import SummaryWriter
 from tqdm import tqdm
-from utils import format_time, get_grad_norm, load_checkpoint, save_checkpoint, set_random_seed
+from utils import crop_tow_patch, format_time, get_grad_norm, load_checkpoint, save_checkpoint, set_random_seed
 from utils.logger import CustomLogger
 from utils.loss import build_loss
 from utils.metrics import get_psnr_torch, get_ssim_torch
@@ -44,7 +44,6 @@ def main(config, args):
         auto_resume_path = os.path.join(config['output'], 'checkpoints', 'checkpoint.pth')
         if os.path.exists(auto_resume_path):
             max_psnr = load_checkpoint(config, auto_resume_path, model, optimizer, lr_scheduler, logger)
-            validate(config, model, critierion, valid_dataloader, config['train'].get('start_epoch', 0), writer)
         else:
             raise ValueError(f"Auto resume failed, no checkpoint found at {auto_resume_path}")
     elif args.resume:
@@ -59,13 +58,15 @@ def main(config, args):
         epoch_start = time.time()
         train_total_loss, train_rgb_loss, train_raw_loss, train_time = train_one_epoch(config, model, critierion, train_dataloader, optimizer, epoch, lr_scheduler, writer)
         logger.info(f'Train: [{epoch}/{config["train"]["epochs"]}] total loss: {train_total_loss:.6f} rgb loss: {train_rgb_loss:.6f} raw loss: {train_raw_loss:.6f} lr: {optimizer.param_groups[0]["lr"]:.6f} train_time: {train_time}')
+
         psnr, ssim, valid_time = validate(config, model, valid_dataloader, epoch, writer)
         max_psnr = max(max_psnr, psnr)
         max_ssim = max(max_ssim, ssim)
+        save_checkpoint(config, epoch, model, psnr, max_psnr, optimizer, lr_scheduler, is_best=(psnr == max_psnr))
+        
         logger.info(f'Valid: [{epoch}/{config["train"]["epochs"]}]  PSNR: {psnr:.2f}  Max_PSNR: {max_psnr:.2f}  SSIM:{ssim:.4f}  Max_SSIM: {max_ssim:.4f}  valid_time: {valid_time}')
         writer.add_scalar('eval/max_psnr', max_psnr, epoch)
         writer.add_scalar('eval/max_ssim', max_ssim, epoch)
-        save_checkpoint(config, epoch, model, max_psnr, optimizer, lr_scheduler, is_best=(max_psnr==psnr))
 
         epoch_end = time.time()
         epoch_time = format_time(epoch_end - epoch_start)
@@ -133,20 +134,17 @@ def validate(config, model, data_loader, epoch, writer):
     tqdm_loader = tqdm(data_loader,desc=f"Valid: [{epoch}/{config['train']['epochs']}]",leave=False)
     for idx, data in enumerate(tqdm_loader):
         input_path, gt_path, ratio = data['input_path'][0], data['gt_path'][0], data['ratio'][0]
-        if config['data']['test']['merge_test']:
-            input_raw = data['input_raw']
-            input_raw = [t.cuda(non_blocking=True) for t in input_raw]#tow inputs
-        else:
-            input_raw = data['input_raw'].cuda(non_blocking=True)
+
+        input_raw = data['input_raw'].cuda(non_blocking=True)
         gt_rgb = data['gt_rgb'].cuda(non_blocking=True)
 
         if config['data']['test']['merge_test']:
-            preds_1 = model(input_raw[0])
-            preds_2 = model(input_raw[1])
+            inputs = crop_tow_patch(input_raw)
+            preds_1 = model(inputs[0])
+            preds_2 = model(inputs[1])
             preds = [torch.cat([preds_1[i], preds_2[i]], dim=-1) for i in range(2)]
         else:
             preds = model(input_raw)#pred_rgb, pred_raw
-            
 
         psnr, ssim = validate_metric(preds[0], gt_rgb)
 
@@ -200,6 +198,7 @@ if __name__=='__main__':
     
     config['output'] = os.path.join(config.get('output', 'runs'), config['name'])
     os.makedirs(config['output'], exist_ok=True)
+    os.makedirs(os.path.join(config['output'],'checkpoints'), exist_ok=True)
 
     start_time = time.strftime("%y%m%d-%H%M", time.localtime())
     logger = CustomLogger(log_file_path=f"{config['output']}/training_log.txt")
@@ -207,7 +206,7 @@ if __name__=='__main__':
     shutil.copy(args.cfg, path)
 
     model_name = config['model']['name']
-    shutil.copy(f"models/{model_name}_model.py", config['output'])
+    shutil.copy(f"models/{model_name}.py", config['output'])
     current_cuda_device = torch.cuda.get_device_properties(torch.cuda.current_device())
     logger.info(f"Current CUDA Device: {current_cuda_device.name}, Total Mem: {int(current_cuda_device.total_memory / 1024 / 1024)}MB")
     main(config, args)

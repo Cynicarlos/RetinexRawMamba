@@ -51,10 +51,13 @@ def load_checkpoint(config, checkpoint_path, model, optimizer, lr_scheduler, log
         checkpoint = torch.load(checkpoint_path, map_location='cpu')
     msg = model.load_state_dict(checkpoint['model'], strict=False)
     logger.info(msg)
+    psnr = 0.0
     max_psnr = 0.0
     if not config.get('eval_mode', False) and 'optimizer' in checkpoint and 'lr_scheduler' in checkpoint:
         optimizer.load_state_dict(checkpoint['optimizer'])
         lr_scheduler.load_state_dict(checkpoint['lr_scheduler'])
+    if 'psnr' in checkpoint:
+        psnr = checkpoint['psnr']
     if 'max_psnr' in checkpoint:
         max_psnr = checkpoint['max_psnr']
     if epoch is None and 'epoch' in checkpoint:
@@ -62,24 +65,28 @@ def load_checkpoint(config, checkpoint_path, model, optimizer, lr_scheduler, log
         logger.info(f"=> loaded successfully '{checkpoint_path}' (epoch {checkpoint['epoch']})")
     del checkpoint
     torch.cuda.empty_cache()
-    return max_psnr
+    return psnr, max_psnr
 
-def save_checkpoint(config, epoch, model, max_psnr, optimizer, lr_scheduler, is_best=False):
-    save_state = {'model': model.state_dict(),
-                'optimizer': optimizer.state_dict(),
-                'lr_scheduler': lr_scheduler.state_dict(),
-                'max_psnr': max_psnr,
-                'epoch': epoch,
-                'config': config}
+def save_checkpoint(config, epoch, model, psnr, max_psnr, optimizer, lr_scheduler, is_best=False):
+    save_state = {
+        'model': model.state_dict(),
+        'optimizer': optimizer.state_dict(),
+        'lr_scheduler': lr_scheduler.state_dict(),
+        'psnr': psnr,
+        'max_psnr': max_psnr,
+        'epoch': epoch,
+        'config': config
+    }
 
-    os.makedirs(os.path.join(config['output'], 'checkpoints'), exist_ok=True)
-
-    save_path = os.path.join(config['output'], 'checkpoints', 'checkpoint.pth')
-    torch.save(save_state, save_path)
-    if epoch % 100 == 0:
-        shutil.copy(save_path, os.path.join(config['output'], 'checkpoints', f'epoch_{epoch:04d}.pth'))
     if is_best:
-        shutil.copy(save_path, os.path.join(config['output'], 'checkpoints', 'best_model.pth'))
+        save_path = os.path.join(config['output'], 'checkpoints', 'best_model.pth')
+    else:
+        save_path = os.path.join(config['output'], 'checkpoints', 'checkpoint.pth')
+
+    torch.save(save_state, save_path)
+    
+    if epoch % 100 == 0:
+        torch.save(save_state, os.path.join(config['output'], 'checkpoints', f'epoch_{epoch}.pth'))
 
 def get_grad_norm(parameters, norm_type=2):
     if isinstance(parameters, torch.Tensor):
@@ -92,3 +99,8 @@ def get_grad_norm(parameters, norm_type=2):
         total_norm += param_norm.item() ** norm_type
     total_norm = total_norm ** (1. / norm_type)
     return total_norm
+
+def crop_tow_patch(input_raw):
+    _, _, H, W = input_raw.shape
+    input_raws = [input_raw[:, :, :, :W//2], input_raw[:, :, :, W//2:]]
+    return input_raws
