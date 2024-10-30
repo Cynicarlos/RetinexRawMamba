@@ -98,7 +98,11 @@ For MCR dataset:
 python test_mcr.py
 ```  
 For SID dataset:  
-If your GPU memory is smaller than 40G, generally 24G, please set ```merge_test: true``` in the corresponding config file so that you can test without OOM(out of memory). Otherwise, please set ```merge_test: false``` to get the same results reported in our paper. Note that the results may be a little bit smaller when merge testing than with whole image.
+If your GPU memory is smaller than 40G, generally 24G, please set use the following script so that you can test without OOM(out of memory). 
+```python
+python test_sony.py --merge_test
+``` 
+otherwise, ignore it. Note that the results may be a little bit smaller when merge testing than with whole image.
 ```python
 python test_sony.py
 ```  
