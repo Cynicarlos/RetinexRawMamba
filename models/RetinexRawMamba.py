@@ -127,8 +127,8 @@ class DAF(nn.Module):
         x = self.out(x)
         return x
 
-#This is RAWMamba as mentioned in the paper, here we call it ADZMamba based on its scaning mechanism.
-class ADZMamba(nn.Module):
+
+class RAWMamba(nn.Module):
     def __init__(
         self,
         d_model,
@@ -578,7 +578,7 @@ class RMamba(nn.Module):
     def __init__(self, in_channels, d_state):
         super().__init__()
         self.layer_norm_1 = LayerNorm(in_channels, data_format="channels_first")
-        self.mamba = ADZMamba(d_model=in_channels, d_state=d_state)
+        self.mamba = RAWMamba(d_model=in_channels, d_state=d_state)
         self.skip_scale = nn.Parameter(torch.ones(in_channels))
         self.layer_norm_2 = LayerNorm(in_channels, data_format="channels_first")
         self.conv = nn.Sequential(nn.Conv2d(in_channels, in_channels, 1), nn.GELU())
