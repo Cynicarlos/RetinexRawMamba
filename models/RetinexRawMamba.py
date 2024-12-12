@@ -128,7 +128,7 @@ class DAF(nn.Module):
         return x
 
 
-class RAWMamba(nn.Module):
+class RAWSSM(nn.Module):
     def __init__(
         self,
         d_model,
@@ -392,7 +392,7 @@ class RAWMamba(nn.Module):
             out = self.dropout(out)
         return out
 
-class NaiveMamba(nn.Module):
+class NaiveSSM(nn.Module):
     def __init__(
             self,
             d_model,
@@ -574,11 +574,11 @@ class NaiveMamba(nn.Module):
             out = self.dropout(out)
         return out
 
-class RMamba(nn.Module):
+class RAWMamba(nn.Module):
     def __init__(self, in_channels, d_state):
         super().__init__()
         self.layer_norm_1 = LayerNorm(in_channels, data_format="channels_first")
-        self.mamba = RAWMamba(d_model=in_channels, d_state=d_state)
+        self.mamba = RAWSSM(d_model=in_channels, d_state=d_state)
         self.skip_scale = nn.Parameter(torch.ones(in_channels))
         self.layer_norm_2 = LayerNorm(in_channels, data_format="channels_first")
         self.conv = nn.Sequential(nn.Conv2d(in_channels, in_channels, 1), nn.GELU())
@@ -601,7 +601,7 @@ class TowDGE(nn.Module):
     def __init__(self, in_channels, d_state):
         super().__init__()
         self.dn_branch = SDB(in_channels=in_channels)
-        self.cc_branch = RMamba(in_channels=in_channels,d_state=d_state)
+        self.cc_branch = RAWMamba(in_channels=in_channels,d_state=d_state)
     def forward(self, x, state):
         assert state == 'dn' or state == 'cc'
         if state == 'dn':
@@ -719,7 +719,7 @@ class RetinexRawMamba(nn.Module):
 
         # four
         self.ccs = nn.ModuleList([
-            RMamba(in_channels=base_channels * (2**i),d_state=base_d_state * (2**i))
+            RAWMamba(in_channels=base_channels * (2**i),d_state=base_d_state * (2**i))
             for i in range(3, -1, -1)
         ])
 
