@@ -1,5 +1,5 @@
 # RetinexRawMamba
-Paper is available at [arXiv](https://arxiv.org/pdf/2409.07040)
+Paper is available at [arXiv](https://arxiv.org/pdf/2409.07040v2)
 
 Clone this repository
 ```
