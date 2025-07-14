@@ -1,5 +1,5 @@
 # RetinexRawMamba
-Paper is available at [arXiv](https://arxiv.org/pdf/2409.07040)
+Paper has been accepted by TCSVT 2025 and is also available at [arXiv](https://arxiv.org/pdf/2409.07040).
 
 Clone this repository
 ```
