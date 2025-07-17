@@ -110,14 +110,16 @@ python test_sony.py
 ## Citation
 If there is any help for your research, please star this repository and if you want to follow this work, you can cite as follows:
 ```md
-@misc{chen2024retinexrawmambabridgingdemosaicingdenoising,
-      title={Retinex-RAWMamba: Bridging Demosaicing and Denoising for Low-Light RAW Image Enhancement}, 
-      author={Xianmin Chen and Peiliang Huang and Xiaoxu Feng and Dingwen Zhang and Longfei Han and Junwei Han},
-      year={2024},
-      eprint={2409.07040},
-      archivePrefix={arXiv},
-      primaryClass={cs.CV},
-      url={https://arxiv.org/abs/2409.07040}, 
+@ARTICLE{11080493,
+  author={Chen, Xianmin and Han, Longfei and Huang, Peiliang and Feng, Xiaoxu and Zhang, Dingwen and Han, Junwei},
+  journal={IEEE Transactions on Circuits and Systems for Video Technology}, 
+  title={Retinex-RAWMamba: Bridging Demosaicing and Denoising for Low-Light RAW Image Enhancement}, 
+  year={2025},
+  volume={},
+  number={},
+  pages={1-1},
+  keywords={Noise reduction;Training;Deep learning;Artificial intelligence;Lighting;Image color analysis;Pipelines;Optimization;Noise measurement;Noise;RAW Image;Low Light;Mamba;ISP},
+  doi={10.1109/TCSVT.2025.3589476}
 }
 ```
 
